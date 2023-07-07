@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript -->
+    <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+    <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+    <!-- my CSS -->
+
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+
+    <!------------------------------------------------------------------------->
+    <!-- my CSS -->
+
+    <link th:href="@{/vnedor/css/style.css}" rel="stylesheet">
+
+    <!--google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Do+Hyeon&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+    <!--google icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <!-- font awesome -->
+    <link href="../fontAwesome/css/all.min.css" rel="stylesheet">
+
+  </head>
+
+
+
+  <body>
+
+  <div class="d-flex" id="wrapper">
+
+
+
+
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <heaader class="heaader-container">
+        <div class="heaader-item heaader-main"><a href="list">Beom-Movie</a></div>
+        <div class="header-sub">culture plex</div>
+        <div style="flex-grow:1"></div>
+        <div class="heaader-item"><a href="login.html"> 로그인</a></div>
+        <div class="heaader-item"><a href="signup.html">회원가입</a></div>
+        <div class="heaader-item"><a href="create.html">관리자</a></div>
+
+      </heaader>
+      <hr />
+      <nav class="nav-container">
+        <div class="nav-item nav-main">영화</div>
+        <div class="nav-item">극장</div>
+        <div class="nav-item">예매</div>
+        <div class="nav-item">이벤트</div>
+      </nav>
+
+
+      <div class="container-fluid">
+
+
+        <div class="container article-container">
+          <div class="article-title">
+            영화 목록
+            <span>
+                <a th:href="@{/movie/register}">
+                    <button type="button" class="btn btn-outline-primary">REGISTER
+                    </button>
+                </a>
+            </span>
+          </div>
+          <div class="article-card">
+
+            <div th:each="dto : ${result.dtoList}" class="article-card-each" >
+              <a th:href="@{/movie/read(mno = ${dto.mno}, page= ${result.page})}">
+              <img class="article-img"
+                   th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                   th:src="|/display?fileName=${dto.imageDTOList[0].getImageURL()}|"
+              >
+              <img class="article-img" src="https://geojecci.korcham.net/images/no-image01.gif"
+                   th:if="${!(dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null) }"
+                   th:src="|https://geojecci.korcham.net/images/no-image01.gif|"
+              >
+              </a>
+             <!-- <img th:if="${dto.imageDTOList.size() > 0 && dto.imageDTOList[0].path != null }"
+                   th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >-->
+
+              <div class="article-content">
+                <p>[[${dto.title}]]</p>
+                <p class="article-time">[[${dto.avg}]] / 리뷰 : [[${dto.reviewCnt}]] 개</p>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+
+
+
+        <form action="/movie/list" method="get" id="searchForm">
+          <input type="hidden" name="page" value="1">
+        </form>
+
+
+      <div class="mcustom">
+        <form action="/movie/list" method="get" id="searchForm2">
+          <div class="input-group">
+            <input type="hidden" name="page" value = "1">
+            <div class="input-group-prepend">
+              <select class="custom-select" name="type">
+                <option th:selected="${pageRequestDTO.type == null}">-------</option>
+                <option value="t" th:selected="${pageRequestDTO.type =='t'}" >제목</option>
+              </select>
+            </div>
+            <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+            <div class="input-group-append" id="button-addon4">
+              <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+              <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
+            </div>
+          </div>
+        </form>
+
+        <ul class="pagination h-100 justify-content-center align-items-center">
+
+          <li class="page-item " th:if="${result.prev}">
+            <a class="page-link" th:href="@{/movie/list(page= ${result.start -1})}" tabindex="-1">Previous</a>
+          </li>
+
+          <li th:class=" 'page-item ' + ${result.page == page?'active':''} " th:each="page: ${result.pageList}">
+            <a class="page-link" th:href="@{/movie/list(page = ${page})}">
+              [[${page}]]
+            </a>
+          </li>
+
+          <li class="page-item" th:if="${result.next}">
+            <a class="page-link" th:href="@{/movie/list(page= ${result.end + 1} )}">Next</a>
+          </li>
+        </ul>
+      </div>
+
+
+
+        <!--<script th:inline="javascript">
+
+
+        </script>-->
+
+      </div>
+
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
+  <!-- /#wrapper -->
+
+
+
+
+
+  <!-- Menu Toggle Script -->
+  <script>
+    $("#menu-toggle").click(function(e) {
+      e.preventDefault();
+      $("#wrapper").toggleClass("toggled");
+    });
+
+    $(".btn-search").click(function (e) {
+      e.preventDefault();
+      $("#searchForm2").submit();
+    });
+  </script>
+
+  </body>
+
+</html>

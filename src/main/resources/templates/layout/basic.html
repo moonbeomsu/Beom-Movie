@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="setContent(content)">
+
+
+        <head>
+
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="">
+
+            <title>Simple Sidebar - Start Bootstrap Template</title>
+
+            <title>Simple Sidebar - Start Bootstrap Template</title>
+
+            <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+
+            <!-- Bootstrap core CSS -->
+            <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+            <!-- Custom styles for this template -->
+            <link th:href="@{/css/simple-sidebar.css}" rel="stylesheet">
+
+            <!-- Bootstrap core JavaScript -->
+            <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+
+
+
+            <!------------------------------------------------------------------------->
+            <!-- my CSS -->
+            <link th:href="@{/css/style.css}" rel="stylesheet">
+
+
+
+
+            <!--google font-->
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Do+Hyeon&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+            <!--google icons-->
+            <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+            <!-- font awesome -->
+            <link href="../fontAwesome/css/all.min.css" rel="stylesheet">
+
+        </head>
+
+    <body>
+
+
+
+        <div id="page-content-wrapper">
+
+            <heaader class="heaader-container">
+                <div class="heaader-item heaader-main"><a href="list">Beom-Movie</a></div>
+                <div class="header-sub">culture plex</div>
+                <div style="flex-grow:1"></div>
+                <div class="heaader-item"><a href="login.html"> 로그인</a></div>
+                <div class="heaader-item"><a href="signup.html">회원가입</a></div>
+                <div class="heaader-item"><a href="create.html">관리자</a></div>
+
+            </heaader>
+            <hr />
+            <nav class="nav-container">
+                <div class="nav-item nav-main">영화</div>
+                <div class="nav-item">극장</div>
+                <div class="nav-item">예매</div>
+                <div class="nav-item">이벤트</div>
+            </nav>
+
+
+
+
+
+        <!-- Page Content -->
+        <div class="mcustom">
+
+
+            <div class="container-fluid">
+
+                <th:block th:replace = "${content}"></th:block>
+
+            </div>
+
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+
+    </body>
+</th:block>
+</html>
