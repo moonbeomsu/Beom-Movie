@@ -64,7 +64,7 @@ public class SearchMovieRepositoryImpl extends QuerydslRepositorySupport impleme
         jpqlQuery.leftJoin(movieImage).on(movie.eq(movieImage.movie));
         jpqlQuery.leftJoin(review).on(movie.eq(review.movie));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(movie, movieImage,review.grade.avg(),review.count());
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(movie, movieImage, review.grade.coalesce(0).avg(), review.count());
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         BooleanExpression expression = movie.mno.gt(0L);
@@ -86,22 +86,24 @@ public class SearchMovieRepositoryImpl extends QuerydslRepositorySupport impleme
         }
 
         tuple.where(booleanBuilder);
-
-
-        Sort sort = pageable.getSort();
-
-        sort.stream().forEach(order -> {
-            Order direction = order.isAscending() ? Order.ASC : Order.DESC;
-            String prop = order.getProperty();
-
-            PathBuilder orderByExpression = new PathBuilder(Movie.class, "movie");
-            tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
-
-        });
         tuple.groupBy(movie);
 
-        tuple.offset(pageable.getOffset());
-        tuple.limit(pageable.getPageSize());
+        this.getQuerydsl().applyPagination(pageable, tuple);
+
+// Sort sort = pageable.getSort();
+//
+// sort.stream().forEach(order -> {
+// Order direction = order.isAscending() ? Order.ASC : Order.DESC;
+// String prop = order.getProperty();
+//
+// PathBuilder orderByExpression = new PathBuilder(Movie.class, "movie");
+// tuple.orderBy(new OrderSpecifier(direction, orderByExpression.get(prop)));
+//
+// });
+// tuple.groupBy(movie);
+//
+// tuple.offset(pageable.getOffset());
+// tuple.limit(pageable.getPageSize());
 
 
         List<Tuple> result = tuple.fetch();
@@ -113,7 +115,5 @@ public class SearchMovieRepositoryImpl extends QuerydslRepositorySupport impleme
 
         return new PageImpl<Object[]>(
                 result.stream().map(t -> t.toArray()).collect(Collectors.toList()), pageable, count);
-
-
     }
 }

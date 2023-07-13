@@ -101,6 +101,23 @@ public class MovieRepositoryTests {
 
     }
 
+    @Test
+    public void testSearch1() {
+
+        movieRepository.search1();
+
+    }
+
+    @Test
+    public void testSearchPage() {
+
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("mno").descending()
+                .and(Sort.by("title").ascending()));
+
+        Page<Object[]> result = movieRepository.searchPage("t", "1", pageable);
+
+    }
+
 
 
 
