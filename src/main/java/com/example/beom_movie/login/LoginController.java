@@ -29,7 +29,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute("loginForm") LoginForm form,
-                        HttpServletRequest request, @RequestParam(defaultValue = "/list")String redirectURL) {
+                        HttpServletRequest request, @RequestParam(defaultValue = "/movie/list")String redirectURL) {
 
 
         Member loginMember = loginService.login(form.getEmail(), form.getPassword());
@@ -47,6 +47,8 @@ public class LoginController {
 
         HttpSession session = request.getSession();
         session.setAttribute(SessionConst.LOGIN_MEMBER,loginMember);
+
+        log.info("URI :{}", redirectURL);
 
         return "redirect:"+ redirectURL;
 

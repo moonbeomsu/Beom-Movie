@@ -29,17 +29,23 @@ public class MovieController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/register")
-    public void register() {
-
+    public void register(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        model.addAttribute("member", loginMember);
     }
 
     @PostMapping("/register")
-    public String register(MovieDTO movieDTO, RedirectAttributes redirectAttributes) {
+    public String register(MovieDTO movieDTO,Model model, RedirectAttributes redirectAttributes,HttpServletRequest request) {
         log.info("movieDTO: " + movieDTO);
 
         Long mno = movieService.register(movieDTO);
 
         redirectAttributes.addFlashAttribute("msg", mno);
+
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        model.addAttribute("member", loginMember);
 
         return "redirect:/movie/list";
     }
@@ -86,13 +92,17 @@ public class MovieController {
     }
 
     @GetMapping({"/read", "modify"})
-    public void read(long mno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
+    public void read(long mno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model,HttpServletRequest request) {
 
         log.info("mno: " + mno);
 
         MovieDTO movieDTO = movieService.getMovie(mno);
 
         model.addAttribute("dto", movieDTO);
+
+        HttpSession session = request.getSession(false);
+        Member loginMember = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
+        model.addAttribute("member", loginMember);
 
     }
 

@@ -14,15 +14,27 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         String requestURI = request.getRequestURI();
+        String mno = request.getParameter("mno");
+        String page = request.getParameter("page");
+
+
 
         log.info("인증 체크 인터셉터 실행 {}", requestURI);
         HttpSession session = request.getSession(false);
+
+        log.info("mno, page : {}, {}",mno,page);
 
         if (session == null || session.getAttribute(SessionConst.LOGIN_MEMBER) == null) {
             log.info("미인증 사용자 요청");
 
             //로그인으로 redirect
-            response.sendRedirect("/login?redirectURL=" + requestURI);
+            if (!(mno == null || page == null)) {
+                response.sendRedirect("/login?redirectURL=" + requestURI + "?mno=" + mno + "&page=" + page);
+            } else {
+                response.sendRedirect("/login?redirectURL=" + requestURI);
+
+            }
+
             return false;
         }
 

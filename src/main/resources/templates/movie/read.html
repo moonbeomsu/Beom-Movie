@@ -147,8 +147,11 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label >Reviewer ID</label>
-              <input type="text" class="form-control" name="mid" >
+              <!--<label >Reviewer ID</label>
+              <input type="text" class="form-control" name="mid" >-->
+              <label >닉네임</label>
+              <input type="text" class="form-control" name="nickname" th:value="${member.nickname}" readonly>
+              <input type="hidden" class="form-control" name="mid" th:value="${member.mid}" readonly>
             </div>
             <div class="form-group">
               <label >Grade <span class="grade"></span></label>
@@ -217,7 +220,7 @@
         var inputText = $('input[name="text"]');
 
         $(".addReviewBtn").click(function () {
-          inputMid.val("");
+          //inputMid.val("");
           inputText.val("");
 
           $(".removeBtn ,  .modifyBtn").hide();

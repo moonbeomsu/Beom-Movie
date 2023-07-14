@@ -57,9 +57,11 @@
                 <div class="heaader-item heaader-main"><a href="list">Beom-Movie</a></div>
                 <div class="header-sub">culture plex</div>
                 <div style="flex-grow:1"></div>
-                <div class="heaader-item"><a href="login.html"> 로그인</a></div>
-                <div class="heaader-item"><a href="signup.html">회원가입</a></div>
-                <div class="heaader-item"><a href="create.html">관리자</a></div>
+                <div class="heaader-item" th:text="|${member.nickname} 님 환영합니다. |">로그인 사용자 이름</div>
+                <form class="logout-form">
+                    <div class="heaader-item logout"> 로그아웃 </div>
+                </form>
+
 
             </heaader>
             <hr />
@@ -99,6 +101,20 @@
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });
+
+        var logoutForm = $(".logout-form")
+
+
+        $(".logout").click(function (e) {
+
+            logoutForm
+                .attr("action", "/logout")
+                .attr("method", "post");
+
+            logoutForm.submit();
+
+        });
+
     </script>
 
     </body>
