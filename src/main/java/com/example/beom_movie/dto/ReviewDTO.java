@@ -17,6 +17,7 @@ public class ReviewDTO {
 
     private Long mno;
 
+    //moive id
     private Long mid;
 
     private String nickname;
