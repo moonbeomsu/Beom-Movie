@@ -32,6 +32,7 @@ public class LoginController {
                         HttpServletRequest request, @RequestParam(defaultValue = "/movie/list")String redirectURL) {
 
 
+
         Member loginMember = loginService.login(form.getEmail(), form.getPassword());
         log.info("login? {}", loginMember);
 

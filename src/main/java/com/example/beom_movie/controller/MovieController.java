@@ -26,7 +26,7 @@ import java.util.Optional;
 public class MovieController {
 
     private final MovieService movieService;
-    private final MemberRepository memberRepository;
+    //private final MemberRepository memberRepository;
 
     @GetMapping("/register")
     public void register(Model model, HttpServletRequest request) {

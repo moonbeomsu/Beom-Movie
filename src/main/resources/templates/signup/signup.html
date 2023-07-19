@@ -16,37 +16,47 @@
 <body>
 <div class="container">
     <div class="py-5 text-center">
-        <h2>로그인</h2>
+        <h2>회원가입</h2>
     </div>
-    <form action="/login" th:action th:object="${loginForm}" method="post">
+    <form th:action ="@{/signup}" th:object="${signupMemberForm}" method="post">
         <!--<div th:if="${#fields.hasGlobalErrors()}">
             <p class="field-error" th:each="err : ${#fields.globalErrors()}"
                th:text="${err}">전체 오류 메시지</p>
         </div>-->
         <div>
-            <label for="loginId">로그인 ID</label>
-            <input type="text" id="loginId" th:field="*{email}" class="form-control"
-                   th:errorclass="field-error">
-            <div class="field-error" th:errors="*{email}" />
+            <label for="email">로그인 ID (E-mail)</label>
+            <input type="text" id="email" name="email"  class="form-control">
         </div>
+
         <div>
             <label for="password">비밀번호</label>
-            <input type="password" id="password" th:field="*{password}"
-                   class="form-control"
-                   th:errorclass="field-error">
-            <div class="field-error" th:errors="*{password}" />
+            <input type="password" id="password" name="password"
+                   class="form-control">
         </div>
+
+        <div>
+            <label for="password">비밀번호 확인</label>
+            <input type="password" id="passwordCheck" name="passwordCheck"
+                   class="form-control">
+        </div>
+
+        <div>
+            <label for="password">닉네임</label>
+            <input type="password" id="nickName" name="nickname"
+                   class="form-control">
+        </div>
+
         <hr class="my-4">
         <div class="row">
             <div class="col">
                 <button class="w-100 btn btn-primary btn-lg" type="submit">
-                    로그인</button>
+                    확인</button>
             </div>
             <div class="col">
-                <button class="w-100 btn btn-secondary btn-lg"
+                <button class="w-100 btn btn-primary btn-lg"
                         onclick="location.href='items.html'"
                         th:onclick="|location.href='@{/}'|"
-                        type="button">회원가입</button>
+                        type="button">로그인</button>
             </div>
         </div>
     </form>
