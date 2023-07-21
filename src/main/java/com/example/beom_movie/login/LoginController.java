@@ -2,6 +2,7 @@ package com.example.beom_movie.login;
 
 import com.example.beom_movie.entity.Member;
 import com.example.beom_movie.session.SessionConst;
+import com.example.beom_movie.signup.SignupMemberForm;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,9 +24,10 @@ public class LoginController {
     private final LoginService loginService;
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
-
-        return "login/loginForm";
+    public String loginForm(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
+        model.addAttribute("signupMemberForm", new SignupMemberForm());
+        return "signup/signup";
     }
 
     @PostMapping("/login")

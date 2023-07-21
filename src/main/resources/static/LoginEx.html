@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <link th:href="@{/css/login.css}" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="container right-panel-active">
+      <!-- Sign Up -->
+      <div class="container__form container--signup">
+        <form th:action ="@{/signup}" th:object="${signupMemberForm}" method="post" class="form" id="form1">
+          <h2 class="form__title">회원가입</h2>
+          <input type="email" id="email" placeholder="Email"  th:field="*{email}"
+                 th:errorclass="field-error" class="input form-control"/>
+          <div class="field-error" th:errors="*{email}">
+            이메일 오류
+          </div>
+          <input type="password" id="password" th:field="*{password}" placeholder="비밀번호"
+                  th:errorclass="field-error" class="form-control input"/>
+          <div class="field-error" th:errors="*{password}">
+            비밀번호 오류
+          </div>
+          <input type="password" id="passwordCheck" th:field="*{passwordCheck}" placeholder="비밀번호 확인"
+                 th:errorclass="field-error" class="form-control input"/>
+          <div class="field-error" th:errors="*{password}">
+            비밀번호 확인 오류
+          </div>
+          <div th:if="${#fields.hasGlobalErrors()}">
+            <p class = "field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
+          </div>
+
+          <input type="text" id="nickname" th:field="*{nickname}" placeholder="닉네임을 입력해주세요"
+                 th:errorclass="field-error" class="form-control input"/>
+          <div class="field-error" th:errors="*{nickname}">
+            닉네임 오류
+          </div>
+
+          <button class="btn" type="submit">Sign Up</button>
+        </form>
+      </div>
+
+      <!-- Sign In -->
+      <div class="container__form container--signin">
+        <form action="#" class="form" id="form2">
+          <h2 class="form__title">로그인</h2>
+          <input type="email" placeholder="Email" class="input" />
+          <input type="password" placeholder="Password" class="input" />
+<!--
+          <a href="#" class="link">Forgot your password?</a>
+-->
+          <button class="btn">Sign In</button>
+        </form>
+      </div>
+
+      <!-- Overlay (전환 버튼) -->
+
+      <div class="container__overlay">
+        <div class="overlay">
+          <div class="overlay__panel overlay--left">
+            <button class="btn" id="signIn">Sign In</button>
+          </div>
+          <div class="overlay__panel overlay--right">
+            <button class="btn" id="signUp">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</body>
+
+<script>
+  const signInBtn = document.getElementById("signIn");
+  const signUpBtn = document.getElementById("signUp");
+  const fistForm = document.getElementById("form1");
+  const secondForm = document.getElementById("form2");
+  const container = document.querySelector(".container");
+
+  signInBtn.addEventListener("click", () => {
+    container.classList.remove("right-panel-active");
+  });
+
+  signUpBtn.addEventListener("click", () => {
+    container.classList.add("right-panel-active");
+  });
+
+  fistForm.addEventListener("submit", (e) => e.preventDefault());
+  secondForm.addEventListener("submit", (e) => e.preventDefault());
+</script>
+</html>
