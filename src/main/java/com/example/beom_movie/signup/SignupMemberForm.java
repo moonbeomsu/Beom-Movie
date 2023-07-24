@@ -18,7 +18,6 @@ public class SignupMemberForm {
 
     @NotNull(message = "null x")
     @NotBlank
-
     private String passwordCheck; // password 확인
 
     @NotNull(message = "null x")

@@ -127,6 +127,7 @@
       Review Register
     </button>
 
+
     <button type="button" class="btn btn-delete deleteBtn">
       Delete Movie
     </button>
@@ -150,7 +151,11 @@
               <!--<label >Reviewer ID</label>
               <input type="text" class="form-control" name="mid" >-->
               <label >닉네임</label>
+<!--
               <input type="text" class="form-control" name="nickname" th:value="${member.nickname}" readonly>
+-->
+              <input type="text" class="form-control" name="nickname" readonly>
+              <input type="hidden" class="form-control" name="LoginMemberNickname" th:value="${member.nickname}" readonly>
               <input type="hidden" class="form-control" name="mid" th:value="${member.mid}" readonly>
             </div>
             <div class="form-group">
@@ -159,7 +164,7 @@
             </div>
             <div class="form-group">
               <label >Review Text</label>
-              <input type="text" class="form-control" name="text" placeholder="Good Movie!" >
+              <input type="text" class="form-control" name="text" placeholder="리뷰를 입력해주세요" >
             </div>
           </div>
           <div class="modal-footer">
@@ -216,11 +221,18 @@
         //$(".reviewModal").modal("show"); //미리 보기용
 
         var reviewModal = $(".reviewModal");
-        var inputMid = $('input[name="mid"]');
+        var inputMid = $('input[name="nickname"]');
         var inputText = $('input[name="text"]');
+        var idText = $('input[name="mid"]');
+
+        //근본적 원인 클릭시 inputmid 가 클릭된 객체에 따라서 변경됨
+        // 로그인한 멤버의 nickname 을 고정해놓는 변수 필요
+
+        var loginMemberNickname = $('input[name="LoginMemberNickname"]');
 
         $(".addReviewBtn").click(function () {
-          //inputMid.val("");
+          //inputMid.val(loginMemberNickname.toString());
+          inputMid.val(loginMemberNickname.val());
           inputText.val("");
 
           $(".removeBtn ,  .modifyBtn").hide();
@@ -231,7 +243,7 @@
 
         $('.reviewSaveBtn').click(function() {
 
-          var data = {mno:mno, grade:grade, text:inputText.val(), mid: inputMid.val() };
+          var data = {mno:mno, grade:grade, text:inputText.val(), mid: idText.val() };
 
           console.log(data);
 
@@ -272,9 +284,9 @@
 
               console.log(review);
 
-              str += '    <div class="card-body" data-reviewnum='+review.reviewnum+' data-mid='+review.mid+'>';
+              str += '    <div class="card-body" data-reviewnum='+review.reviewnum+' data-mid='+review.mid+' data-nickname='+review.nickname+'>';
               str += '    <h5 class="card-title">'+review.text+'<br>'+' <span>'+ review.grade+'</span> <span>점</span></h5>';
-              str += '    <h6 class="card-subtitle mb-2 text-muted">'+review.nickname+'</h6>';
+              str += '    <h6 class="card-subtitle mb-2 text-muted" >'+review.nickname+'</h6>';
               str += '    <p class="card-text">'+ formatTime(review.regDate) +'</p>';
               str += '    </div>';
             });
@@ -286,6 +298,7 @@
         getMovieReviews();
 
         var reviewnum;
+        var reviwerNickname;
 
         $(".reviewList").on("click", ".card-body", function() {
 
@@ -296,8 +309,11 @@
           var targetReview = $(this);
 
           reviewnum = targetReview.data("reviewnum");
+          reviwerNickname = targetReview.data("nickname")
+
+          console.log("nickname:" + reviwerNickname);
           console.log("reviewnum: "+ reviewnum);
-          inputMid.val(targetReview.data("mid"));
+          inputMid.val(targetReview.data("nickname"));
           inputText.val(targetReview.find('.card-title').clone().children().remove().end().text());
 
           var grade = targetReview.find('.card-title span').html();
@@ -309,7 +325,13 @@
 
         $(".modifyBtn").on("click", function(){
 
-          var data = {reviewnum: reviewnum, mno:mno, grade:grade, text:inputText.val(), mid: inputMid.val() };
+          if (reviwerNickname != loginMemberNickname.val()) {
+            alert("자신이 작성한 댓글만 수정이 가능합니다.");
+            modal.modal("hide");
+            return;
+          }
+
+          var data = {reviewnum: reviewnum, mno:mno, grade:grade, text:inputText.val(), mid: idText.val() };
 
           console.log(data);
 
@@ -331,6 +353,12 @@
         });
 
         $(".removeBtn").on("click", function(){
+
+          if (reviwerNickname != loginMemberNickname.val()) {
+            alert("자신이 작성한 댓글만 삭제가 가능합니다.");
+            modal.modal("hide");
+            return;
+          }
 
           var data = {reviewnum: reviewnum};
 
