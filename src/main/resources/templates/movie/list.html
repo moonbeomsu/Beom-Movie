@@ -44,6 +44,25 @@
     <!-- font awesome -->
     <link href="../fontAwesome/css/all.min.css" rel="stylesheet">
 
+    <style>
+      #searchForm2 {
+        border-radius: 10px;
+        width: 700px;
+        text-align: center;
+      }
+      .searchForm {
+        text-align: center;
+        align-items: center;
+        margin-left: 150px;
+      }
+
+      .header-img {
+        width: 150px;
+        height: 150px;
+
+      }
+    </style>
+
   </head>
 
 
@@ -60,12 +79,12 @@
     <div id="page-content-wrapper">
 
       <heaader class="heaader-container">
+        <div><img class="header-img" src="/img/tigerbeom.png"></div>
         <div class="heaader-item heaader-main"><a href="list">Beom-Movie</a></div>
-        <div class="header-sub">culture plex</div>
+        <div class="header-sub">영화 리뷰 사이트</div>
         <div style="flex-grow:1"></div>
         <div class="heaader-item"><a href="/login"> 로그인</a></div>
         <div class="heaader-item"><a href="/signup">회원가입</a></div>
-        <div class="heaader-item"><a href="create.html">관리자</a></div>
 
       </heaader>
       <hr />
@@ -83,13 +102,22 @@
         <div class="container article-container">
           <div class="article-title">
             영화 목록
-            <span>
-                <a th:href="@{/movie/register}">
-                    <button type="button" class="btn btn-outline-primary">REGISTER
-                    </button>
-                </a>
-            </span>
           </div>
+          <form action="/movie/list" method="get" id="searchForm2">
+            <div class="searchForm input-group ">
+              <input type="hidden" name="page" value = "1">
+              <div  class="input-group-prepend">
+                <select  class="custom-select" name="type">
+                  <!--<option th:selected="${pageRequestDTO.type == null}">-------</option>-->
+                  <option value="t" th:selected="${pageRequestDTO.type =='t'}" >제목</option>
+                </select>
+              </div>
+              <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
+              <div class="input-group-append" id="button-addon4">
+                <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
+              </div>
+            </div>
+          </form>
           <div class="article-card">
 
             <div th:each="dto : ${result.dtoList}" class="article-card-each" >
@@ -107,7 +135,8 @@
                    th:src="|/display?fileName=${dto.imageDTOList[0].getThumbnailURL()}|" >-->
 
               <div class="article-content">
-                <p>[[${dto.title}]]</p>
+                <h5>[[${dto.title}]]</h5>
+                <br>
                 <p class="article-time">[[${dto.avg}]] / 리뷰 : [[${dto.reviewCnt}]] 개</p>
               </div>
             </div>
@@ -124,22 +153,6 @@
 
 
       <div class="mcustom">
-        <form action="/movie/list" method="get" id="searchForm2">
-          <div class="input-group">
-            <input type="hidden" name="page" value = "1">
-            <div class="input-group-prepend">
-              <select class="custom-select" name="type">
-                <option th:selected="${pageRequestDTO.type == null}">-------</option>
-                <option value="t" th:selected="${pageRequestDTO.type =='t'}" >제목</option>
-              </select>
-            </div>
-            <input class="form-control" name="keyword" th:value="${pageRequestDTO.keyword}">
-            <div class="input-group-append" id="button-addon4">
-              <button class="btn btn-outline-secondary btn-search" type="button">Search</button>
-              <button class="btn btn-outline-secondary btn-clear" type="button">Clear</button>
-            </div>
-          </div>
-        </form>
 
         <ul class="pagination h-100 justify-content-center align-items-center">
 

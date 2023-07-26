@@ -34,16 +34,17 @@ public class SignupController {
 
 
         //예외
-        /*
-        if (form.getPrice() != null && form.getQuantity() != null) {
-            int resultPrice = form.getPrice() * form.getQuantity();
-            if (resultPrice < 10000) {
-                bindingResult.reject("totalPriceMin", new Object[]{10000,
-                        resultPrice}, null);
-            } }
-        */
+
 
         model.addAttribute("loginForm", new LoginForm());
+
+        if (signupService.checkEmailDuplicate(signupMemberForm.getEmail())) {
+            bindingResult.reject("DuplicatedEmail","이미 사용중인 E-mail 입니다.");
+        }
+
+        if (signupService.checkNicknameDuplicate(signupMemberForm.getNickname())) {
+            bindingResult.reject("DuplicatedNickname","이미 사용중인 닉네임 입니다.");
+        }
 
         if (!signupMemberForm.getPassword().equals(signupMemberForm.getPasswordCheck())) {
             bindingResult.reject("passwordCheckError","비밀번호와 비밀번호 확인 값이 다릅니다.");

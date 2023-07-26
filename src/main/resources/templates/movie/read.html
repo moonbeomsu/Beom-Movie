@@ -128,7 +128,7 @@
     </button>
 
 
-    <button type="button" class="btn btn-delete deleteBtn">
+    <button th:if="${(member.nickname).equals('관리자')}" type="button" class="btn btn-delete deleteBtn">
       Delete Movie
     </button>
 
@@ -285,7 +285,7 @@
               console.log(review);
 
               str += '    <div class="card-body" data-reviewnum='+review.reviewnum+' data-mid='+review.mid+' data-nickname='+review.nickname+'>';
-              str += '    <h5 class="card-title">'+review.text+'<br>'+' <span>'+ review.grade+'</span> <span>점</span></h5>';
+              str += '    <h5 class="card-title">'+review.text+'<br><h6>'+' '+ review.grade+'점</h6></h5>';
               str += '    <h6 class="card-subtitle mb-2 text-muted" >'+review.nickname+'</h6>';
               str += '    <p class="card-text">'+ formatTime(review.regDate) +'</p>';
               str += '    </div>';

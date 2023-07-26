@@ -26,4 +26,26 @@ public class SignupServiceImpl implements SignupService{
         memberRepository.save(member);
         return member.getMid();
     }
+
+    @Override
+    public boolean checkEmailDuplicate(String email) {
+
+        if (email == null || email == "") {
+            return false;
+        }
+
+        return memberRepository.existsByEmail(email);
+
+
+    }
+
+    @Override
+    public boolean checkNicknameDuplicate(String nickname) {
+
+        if (nickname == null || nickname=="") {
+            return false;
+        }
+
+        return memberRepository.existsByNickname(nickname);
+    }
 }

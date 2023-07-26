@@ -119,7 +119,7 @@ a{
 .article-container {
     width: 1000px;
 
-    height: 1000px;
+    height: 900px;
 
     margin-top: 40px;
     font-size: 30px;
@@ -142,6 +142,7 @@ a{
 
 .article-title{
     margin-left: 30px;
+    margin-bottom: 10px;
 }
 .article-btn {
     margin-left: 20px;
@@ -168,7 +169,7 @@ a{
 
 }
 .article-time{
-    margin: -30px;
+    margin-top: -50px;
     font-size: 20px;
 }
 

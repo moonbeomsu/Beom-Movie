@@ -28,17 +28,18 @@
             </div>
             <input type="password" id="passwordCheck" th:field="*{passwordCheck}" placeholder="비밀번호 확인"
                    th:errorclass="field-error" class="form-control input"/>
-            <div class="field-error" th:errors="*{password}">
+            <div class="field-error" th:errors="*{passwordCheck}">
                 비밀번호 확인 오류
-            </div>
-            <div th:if="${#fields.hasGlobalErrors()}">
-                <p class = "field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
             </div>
 
             <input type="text" id="nickname" th:field="*{nickname}" placeholder="닉네임"
                    th:errorclass="field-error" class="form-control input"/>
             <div class="field-error" th:errors="*{nickname}">
                 닉네임 오류
+            </div>
+
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p class = "field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">전체 오류 메시지</p>
             </div>
 
             <button class="btn" type="submit">Sign Up</button>
@@ -102,24 +103,29 @@
     const secondForm = document.getElementById("form2");
     const container = document.querySelector(".container");
 
+    window.onload = function () {
+        var pageUrl = window.location.pathname;
+        console.log(pageUrl);
+
+        if (pageUrl == "/login") {
+            //signInBtn.click();
+            container.classList.remove("right-panel-active");
+        }
+
+    };
+
+
 
     signInBtn.addEventListener("click", () => {
         container.classList.remove("right-panel-active");
+        window.location.href = "/login";
     });
 
     signUpBtn.addEventListener("click", () => {
         container.classList.add("right-panel-active");
     });
 
-    window.onload = function () {
-        var pageUrl = window.location.pathname;
-        console.log(pageUrl);
 
-        if (pageUrl == "/login") {
-            signInBtn.click();
-        }
-
-    };
 
 
     //fistForm.addEventListener("submit", (e) => e.preventDefault());
