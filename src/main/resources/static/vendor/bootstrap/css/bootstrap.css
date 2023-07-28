@@ -4782,6 +4782,11 @@ input[type="button"].btn-block {
   padding: 1.25rem;
 }
 
+.btn-likeCount {
+  padding-bottom: 8px;
+}
+
+
 .card-title {
   margin-bottom: 0.75rem;
 }

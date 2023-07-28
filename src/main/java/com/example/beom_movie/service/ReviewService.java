@@ -26,6 +26,7 @@ public interface ReviewService {
                 .member(Member.builder().mid(movieReviewDTO.getMid()).build())
                 .grade(movieReviewDTO.getGrade())
                 .text(movieReviewDTO.getText())
+                .likeCount(movieReviewDTO.getLikeCount())
                 .build();
 
         return movieReview;
@@ -43,6 +44,7 @@ public interface ReviewService {
                 .text(movieReview.getText())
                 .regDate(movieReview.getRegDate())
                 .modDate(movieReview.getModDate())
+                .likeCount(movieReview.getLikeCount())
                 .build();
 
         return movieReviewDTO;

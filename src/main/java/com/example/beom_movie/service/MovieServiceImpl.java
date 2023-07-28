@@ -63,6 +63,7 @@ public class MovieServiceImpl implements MovieService{
         Page<Object[]> result = movieRepository.getListPage(pageable);
         */
 
+        // 영화 목록 가져오는 부분
         Page<Object[]> result = movieRepository.searchPage(
                 requestDTO.getType(),
                 requestDTO.getKeyword(),

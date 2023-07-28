@@ -3,6 +3,7 @@ package com.example.beom_movie.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Builder
@@ -25,6 +26,9 @@ public class Review extends BaseEntity {
     private int grade;
 
     private String text;
+
+    @ColumnDefault("0")
+    private Long likeCount;
 
     public void changeGrade(int grade) {
         this.grade = grade;

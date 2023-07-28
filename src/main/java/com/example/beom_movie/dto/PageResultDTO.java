@@ -28,7 +28,7 @@ public class PageResultDTO<DTO,EN> {
 
 
     public PageResultDTO(Page<EN> result, Function<EN,DTO> fn) {
-        dtoList = result.stream().map(fn).collect(Collectors.toList());
+        dtoList = result.stream().map(fn).collect(Collectors.toList()); //영화 목록 리스트에 collect
 
         totalPage = result.getTotalPages();
 

@@ -30,4 +30,7 @@ public class ReviewDTO {
 
     private LocalDateTime regDate, modDate;
 
+    //공감 , 좋아요
+    private Long likeCount;
+
 }
