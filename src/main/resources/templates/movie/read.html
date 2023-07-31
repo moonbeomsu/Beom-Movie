@@ -5,7 +5,7 @@
 
   <th:block th:fragment="content">
 
-    <h1 class="mt-4">Movie Read Page</h1>
+    <h1 class="mt-4"> &nbsp;</h1>
 
     <div class="read-main">
       <img class="movie-photo"
@@ -105,6 +105,27 @@
         box-shadow: 0 0 0 0.2rem rgba(58, 176, 195, 0.5);
       }
 
+      ion-icon.active{
+        animation:like 0.5s 1;
+        fill:red;
+        stroke:none;
+      }
+
+      ion-icon{
+        fill:red;
+        stroke:black;
+        stroke-width:30;
+        transition:all 0.5s;
+        padding-left: 5px;
+      }
+
+
+      @-webkit-keyframes like {
+        0%   { transform: scale(1); }
+        90%   { transform: scale(1.2); }
+        100% { transform: scale(1.1); }
+      }
+
     </style>
 
 
@@ -120,16 +141,16 @@
 
 
     <button type="button" class="btn btn-primary">
-      Review Count <span class="badge badge-light">[[${dto.reviewCnt}]]</span>
+      리뷰 수 <span class="badge badge-light">[[${dto.reviewCnt}]]</span>
     </button>
 
     <button type="button" class="btn btn-info addReviewBtn">
-      Review Register
+      리뷰 등록
     </button>
 
 
     <button th:if="${(member.nickname).equals('관리자')}" type="button" class="btn btn-delete deleteBtn">
-      Delete Movie
+      영화 삭제
     </button>
 
     <div class="list-group reviewList">
@@ -297,7 +318,9 @@
 
               str += '    <div class="card-body" data-reviewnum='+review.reviewnum+' data-mid='+review.mid+' data-nickname='+review.nickname+'>';
               str += '    <h5 class="card-title">'+review.text+'<br>'+'<h6 class="grade"><span>'+ review.grade+'</span>' +
-                      ' 점</div><div class="card-body2"><button class="btn-likeCount" data-reviewnum='+review.reviewnum+'>공감 '+ review.likeCount +'</button></h6></h5>' ;
+                      ' 점</div>' +
+                      '<div class="card-body2"><div class="btn-likeCount" data-reviewnum='+review.reviewnum+'><ion-icon class="heart" name="heart"><div class="red-bg""></div>' +
+                      '   </ion-icon>&nbsp; Like '+ review.likeCount +'</div></h6></h5>' ;
               str += '    <h6 class="card-subtitle mb-2 text-muted" >'+review.nickname+'</h6>';
               str += '    <p class="card-text">'+ formatTime(review.regDate) +'</p></div>';
 
@@ -450,6 +473,10 @@
           var memberId = loginMemberId.val();
           var targetReview = $(this);
 
+          let icon = document.querySelector('ion-icon');
+          icon.classList.toggle('active');
+
+
           console.log(targetReview);
 
 
@@ -477,9 +504,10 @@
               //$(".list-group").load(window.location.href + " .list-group");
 
 
-
             }
-          })
+          });
+
+
 
         });
 

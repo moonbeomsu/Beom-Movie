@@ -26,6 +26,9 @@
             <!-- Bootstrap core JavaScript -->
             <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
 
+            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 
 
 
@@ -39,7 +42,7 @@
             <!--google font-->
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-            <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Do+Hyeon&family=Rowdies:wght@300;400;700&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Diphylleia&family=Nanum+Gothic+Coding:wght@400;700&display=swap" rel="stylesheet">
             <!--google icons-->
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
             <!-- font awesome -->
@@ -50,6 +53,11 @@
                     width: 150px;
                     height: 150px;
                 }
+
+                body, h1, h2, h3, h4, h5, h6, p, span {
+                    font-family: 'Nanum Gothic'!important;
+                }
+
             </style>
 
         </head>
@@ -63,7 +71,7 @@
             <heaader class="heaader-container">
                 <div><img class="header-img" src="/img/tigerbeom.png"></div>
                 <div class="heaader-item heaader-main"><a href="list">Beom-Movie</a></div>
-                <div class="header-sub">culture plex</div>
+                <div class="header-sub">영화 리뷰 사이트</div>
                 <div style="flex-grow:1"></div>
                 <div class="heaader-item" th:text="|${member.nickname} 님 환영합니다. |">로그인 사용자 이름</div>
                 <form class="logout-form">
@@ -77,7 +85,7 @@
                 <div class="nav-item nav-main">영화</div>
                 <div class="nav-item">극장</div>
                 <div class="nav-item">예매</div>
-                <div class="nav-item">이벤트</div>
+                <div class="nav-item">공지</div>
             </nav>
 
 

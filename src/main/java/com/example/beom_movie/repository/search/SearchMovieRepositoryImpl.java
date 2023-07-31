@@ -64,7 +64,7 @@ public class SearchMovieRepositoryImpl extends QuerydslRepositorySupport impleme
         jpqlQuery.leftJoin(movieImage).on(movie.eq(movieImage.movie));
         jpqlQuery.leftJoin(review).on(movie.eq(review.movie));
 
-        JPQLQuery<Tuple> tuple = jpqlQuery.select(movie, movieImage, review.grade.coalesce(0).avg(), review.count());
+        JPQLQuery<Tuple> tuple = jpqlQuery.select(movie, movieImage, review.grade.coalesce(0).avg(), review.countDistinct());
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         BooleanExpression expression = movie.mno.gt(0L);

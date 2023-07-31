@@ -81,14 +81,6 @@ public class MovieController {
 
     }
 
-    @GetMapping("/list3")
-    public void list2(PageRequestDTO pageRequestDTO, Model model) {
-
-        log.info("pageRequestDTO : " + pageRequestDTO);
-
-        model.addAttribute("result", movieService.getList(pageRequestDTO));
-
-    }
 
     @GetMapping({"/read", "modify"})
     public void read(long mno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model,HttpServletRequest request) {
