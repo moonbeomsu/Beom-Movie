@@ -56,6 +56,11 @@
             margin-left: 150px;
         }
 
+        .register-button {
+            margin-left: 350px;
+            padding-top: 30px;
+        }
+
         body, h1, h2, h3, h4, h5, h6, p, span {
             font-family: 'Nanum Gothic'!important;
         }
@@ -127,12 +132,12 @@
 
                 <div class="article-title">
 
-                    <span>
-                <a th:if="${(member.nickname).equals('관리자')}" th:href="@{/movie/register}">
-                    <button type="button" class="btn btn-outline-primary">REGISTER
-                    </button>
-                </a>
-            </span>
+                <span class="register-button">
+                    <a th:if="${(member.nickname).equals('관리자')}" th:href="@{/movie/register}">
+                        <button type="button" class="btn btn-outline-primary" >영화 등록(관리자 전용)
+                        </button>
+                    </a>
+                </span>
                 </div>
                 <div class="article-card">
 
