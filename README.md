@@ -1,7 +1,8 @@
 # <img src="https://github.com/moonbeomsu/Beom-Movie/assets/85485633/c9fc2504-4ff8-4cf2-a1c8-e5913a587d11"  width="70" height="50"/> Beom-Movie
 
 
-![image](https://github.com/moonbeomsu/Beom-Movie/assets/85485633/08e1174f-eee1-4a12-967c-a712fbf553c4)
+
+![스크린샷 2023-08-03 오후 1 36 59](https://github.com/moonbeomsu/Beom-Movie/assets/85485633/4a1c66d9-1b54-48ce-83ce-8fa9ab1954d0)
 
 
 ### 목차
